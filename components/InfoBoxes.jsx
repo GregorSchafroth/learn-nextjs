@@ -23,7 +23,7 @@ const InfoBoxes = () => {
               text: "Add Property",
               link: "/properties/add",
               backgroundColor: "bg-blue-500",
-              hoverColor: "hover:bg-blue-400",
+              hoverColor: "hover:bg-blue-600",
             }}
             backgroundColor="bg-blue-100"
           >
