@@ -1,7 +1,7 @@
 'use server';
 import connectDB from '@/config/database';
 import Property from '@/models/Property';
-import { getSessionsUser } from '@/utils/getSessionUser';
+import { getSessionUser } from '@/utils/getSessionUser';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import cloudinary from '@/config/cloudinary';
@@ -9,7 +9,7 @@ import cloudinary from '@/config/cloudinary';
 async function addProperty(formData) {
   await connectDB();
 
-  const sessionUser = await getSessionsUser();
+  const sessionUser = await getSessionUser();
 
   if (!sessionUser || !sessionUser.userId) {
     throw new Error('User ID is required');
