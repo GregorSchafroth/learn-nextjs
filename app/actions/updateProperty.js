@@ -4,9 +4,8 @@ import Property from '@/models/Property';
 import { getSessionUser } from '@/utils/getSessionUser';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
-import cloudinary from '@/config/cloudinary';
 
-async function addProperty(formData) {
+async function updateProperty(propertyId, formData) {
   await connectDB();
 
   const sessionUser = await getSessionUser();
@@ -14,11 +13,15 @@ async function addProperty(formData) {
   if (!sessionUser || !sessionUser.userId) {
     throw new Error('User ID is required');
   }
+
   const { userId } = sessionUser;
 
-  // Access all values from amenities and images
-  const amenities = formData.getAll('amenities');
-  const images = formData.getAll('images').filter((image) => image.name !== '');
+  const existingProperty = await Property.findById(propertyId);
+
+  // verify Ownerhship
+  if (existingProperty.owner.toString() !== userId) {
+    throw new Error('Current user does not own this property');
+  }
 
   const propertyData = {
     owner: userId,
@@ -34,7 +37,7 @@ async function addProperty(formData) {
     beds: formData.get('beds'),
     baths: formData.get('baths'),
     square_feet: formData.get('square_feet'),
-    amenities,
+    amenities: formData.getAll('amenities'),
     rates: {
       nightly: formData.get('rates.nightly'),
       weekly: formData.get('rates.weekly'),
@@ -47,37 +50,14 @@ async function addProperty(formData) {
     },
   };
 
-  console.log(propertyData);
-
-  const imageUrls = [];
-
-  for (const imageFile of images) {
-    const imageBuffer = await imageFile.arrayBuffer();
-    const imageArray = Array.from(new Uint8Array(imageBuffer));
-    const imageData = Buffer.from(imageArray);
-
-    // Convert to base64
-    const imageBase64 = imageData.toString('base64');
-
-    // Make request to cloudinary
-    const result = await cloudinary.uploader.upload(
-      `data:image/png;base64,${imageBase64}`,
-      {
-        folder: 'propertypulse',
-      }
-    );
-
-    imageUrls.push(result.secure_url);
-  }
-
-  propertyData.images = imageUrls;
-
-  const newProperty = new Property(propertyData);
-  await newProperty.save();
+  const updatedProperty = await Property.findByIdAndUpdate(
+    propertyId,
+    propertyData
+  );
 
   revalidatePath('/', 'layout');
 
-  redirect(`/properties/${newProperty._id}`);
+  redirect(`/properties/${updatedProperty._id}`);
 }
 
-export default addProperty;
+export default updateProperty;
