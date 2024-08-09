@@ -3,6 +3,7 @@ import Message from '@/models/Message';
 import '@/models/Property';
 import { convertToSerializableObject } from '@/utils/convertToObject';
 import { getSessionUser } from '@/utils/getSessionUser';
+import MessageCard from '@/components/MessageCard';
 
 const MessagesPage = async () => {
   connectDB();
@@ -27,6 +28,7 @@ const MessagesPage = async () => {
     const message = convertToSerializableObject(messageDoc);
     message.sender = convertToSerializableObject(messageDoc.sender);
     message.property = convertToSerializableObject(messageDoc.property);
+
     return message;
   });
 
@@ -38,7 +40,7 @@ const MessagesPage = async () => {
         <div className="space-y-4">
           { messages.length === 0 ? (<p>You have no messages</p>) : (
             messages.map((message) => (
-              <h3 key={message._id}>{ message.name }</h3>
+              <MessageCard key={message._id} message={message} />
             ))
           ) }
         </div>

@@ -33,7 +33,7 @@ const MessageSchema = new Schema(
     },
   },
   {
-    Timestamp: true,
+    timestamps: true,
   }
 );
 

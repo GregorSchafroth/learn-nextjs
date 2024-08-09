@@ -47,8 +47,6 @@ async function addProperty(formData) {
     },
   };
 
-  console.log(propertyData);
-
   const imageUrls = [];
 
   for (const imageFile of images) {

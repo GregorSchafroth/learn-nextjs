@@ -22,7 +22,7 @@ const UserSchema = new Schema(
     ],
   },
   {
-    Timestamp: true,
+    timestamps: true,
   }
 );
 
