@@ -29,7 +29,7 @@ const HomeProperties = async () => {
           )}
         </div>
       </section>
-      <section className='m-auto max-w-lg my-6 px-6'>
+      <section className='m-auto max-w-lg my-6 mb-20'>
         <Link
           href='/properties'
           className='block bg-black text-white text-center py-4 px-6 rounded-xl hover:bg-gray-700'
