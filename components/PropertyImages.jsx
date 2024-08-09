@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from 'next/image';
 
 const PropertyImages = ({ images }) => {
   return (
@@ -11,18 +11,24 @@ const PropertyImages = ({ images }) => {
             className='object-cover h-[400px] mx-auto rounded-xl'
             width={1800}
             height={400}
+            style={{ width: 'auto', height: '100%' }}
+            layout='responsive'
             priority={true}
           />
         ) : (
           <div className='grid grid-cols-2 gap-4'>
             {images.map((image, index) => (
-              <div key={index} className={` ${images.length == 3 && index === 2 ? 'col-span-2' : 'col-span-1'}`}>
+              <div
+                key={index}
+                className={` ${images.length == 3 && index === 2 ? 'col-span-2' : 'col-span-1'}`}
+              >
                 <Image
                   src={image}
                   alt=''
                   className='object-cover h-[400px] w-full rounded-xl'
                   width={1800}
                   height={400}
+                  style={{ width: '100%', height: 'auto' }}
                   priority={true}
                 />
               </div>
