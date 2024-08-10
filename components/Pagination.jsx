@@ -4,7 +4,7 @@ const Pagination = ({ page, pageSize, totalItems }) => {
   const totalPages = Math.ceil(totalItems / pageSize);
 
   return (
-    <section className='container mx-auto flex justify-center items-center my-8'>
+    <section className='container mx-auto flex justify-center items-center mt-6'>
       {page > 1 && (
         <Link
           href={`/properties?page=${page - 1}`}

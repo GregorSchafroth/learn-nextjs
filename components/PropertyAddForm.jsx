@@ -1,8 +1,27 @@
+'use client';
+
+import { useState } from 'react';
 import addProperty from '@/app/actions/addProperty';
 
 const PropertyAddForm = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    setIsSubmitting(true);
+
+    try {
+      await addProperty(new FormData(event.target));
+    } catch (error) {
+      console.error('Failed to submit form:', error);
+    } finally {
+      // setIsSubmitting(false);
+    }
+  };
+
   return (
-    <form action={addProperty}>
+    <form onSubmit={handleSubmit}>
       <h2 className='text-3xl text-center font-semibold mb-6'>Add Property</h2>
 
       <div className='mb-4'>
@@ -391,14 +410,23 @@ const PropertyAddForm = () => {
           required
         />
       </div>
-
+      {/* <!-- Add Property Button --> */}
       <div>
-        <button
-          className='bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline'
-          type='submit'
-        >
-          Add Property
-        </button>
+        {isSubmitting ? (
+          <button
+            className='bg-gray-300 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline'
+            disabled
+          >
+            Addding Property...
+          </button>
+        ) : (
+          <button
+            className='bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline'
+            type='submit'
+          >
+            Add Property
+          </button>
+        )}
       </div>
     </form>
   );

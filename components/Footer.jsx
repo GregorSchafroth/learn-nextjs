@@ -11,13 +11,13 @@ const Footer = () => {
         <div className="mb-4 md:mb-0">
           <Image src={logo} alt="Logo" className="h-8 w-auto" />
         </div>
-        <div className="flex flex-wrap justify-center md:justify-start mb-4 md:mb-0">
+        <div className="flex flex-wrap">
           <ul className="flex space-x-4">
             <li>
-              <Link href="/properties">Properties</Link>
+              <Link href="/">Home</Link>
             </li>
             <li>
-              <Link href="/">Terms of Service</Link>
+              <Link href="/properties">Properties</Link>
             </li>
           </ul>
         </div>

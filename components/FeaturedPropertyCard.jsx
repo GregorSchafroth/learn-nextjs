@@ -29,10 +29,10 @@ const FeaturedPropertyCard = ({ property }) => {
           width={0}
           height={0}
           sizes='100vw'
-          className='w-full h-auto rounded-t-xl md:rounded-tr-none md:rounded-l-xl md:w-2/5'
+          className='w-full h-auto rounded-t-xl md:rounded-tr-none md:rounded-l-xl md:w-2/5 object-cover'
         />
-        <div className='p-6'>
-          <h3 className='text-xl font-bold'>{property.name}</h3>
+        <div className='p-6 md:w-3/5'>
+          <h3 className='text-xl font-bold truncate'>{property.name}</h3>
           <div className='text-gray-600 mb-4'>{property.type}</div>
           <h3 className='absolute top-[10px] left-[10px] bg-white px-4 py-2 rounded-lg text-blue-500 font-bold text-right md:text-center lg:text-right'>
             {getRateDisplay()}
@@ -74,16 +74,16 @@ const FeaturedPropertyCard = ({ property }) => {
 
           <div className='border border-gray-200 mb-5'></div>
 
-          <div className='flex flex-col lg:flex-row justify-between'>
-            <div className='flex align-middle gap-2 mb-4 lg:mb-0'>
-              <FaMapMarker className='text-orange-700 mt-1' />
-              <span className='text-orange-700'>
+          <div className='flex flex-row justify-between items-center'>
+            <div className='flex align-middle gap-2 mb-4 lg:mb-0 flex-grow overflow-hidden'>
+              <FaMapMarker className='text-orange-700 mt-1 flex-shrink-0' />
+              <p className='text-orange-700 pr-4 truncate'>
                 {' '}
-                {property.location.city}
-                {property.location.state}{' '}
-              </span>
+                {property.location.city}{' '}
+                {property.location.state}
+              </p>
             </div>
-            <button className='h-[36px] bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-center text-sm'>
+            <button className='h-[36px] bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-center text-sm flex-shrink-0'>
               Details
             </button>
           </div>
