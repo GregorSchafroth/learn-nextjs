@@ -30,7 +30,7 @@ const Navbar = () => {
 
   return (
     <nav className='bg-blue-700 border-b border-blue-500'>
-      <div className='mx-auto max-w-7xl px-2 sm:px-6 lg:px-8'>
+      <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
         <div className='relative flex h-20 items-center justify-between'>
           <div className='absolute inset-y-0 left-0 flex items-center md:hidden'>
             {/* <!-- Mobile menu button--> */}
@@ -99,7 +99,7 @@ const Navbar = () => {
 
           {/* <!-- Right Side Menu (Logged Out) --> */}
           {!session && (
-            <div className='hidden md:block md:ml-6'>
+            <div className='ml-6'>
               <div className='flex items-center'>
                 {providers &&
                   Object.values(providers).map((provider, index) => (
@@ -238,21 +238,6 @@ const Navbar = () => {
               >
                 Add Property
               </Link>
-            )}
-            {!session && (
-              <div className='flex items-center'>
-                {providers &&
-                  Object.values(providers).map((provider, index) => (
-                    <button
-                      key={index}
-                      onClick={() => signIn(provider.id)}
-                      className='flex items-center text-white bg-gray-700 hover:bg-gray-900 hover:text-white rounded-md px-3 py-2'
-                    >
-                      <FaGoogle className='text-white mr-2' />
-                      <span>Login or Register</span>
-                    </button>
-                  ))}
-              </div>
             )}
           </div>
         </div>
